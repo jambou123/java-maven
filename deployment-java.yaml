@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java
+  labels:
+    app: java
+spec:
+  selector:
+    matchLabels:
+      app: java
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: java
+    spec:
+      containers:
+        - image: replace-image
+          name: java
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  labels:
+    app: java
+spec:
+  type: NodePort
+  selector:
+    app: java
+   
+  ports:
+    - protocol: TCP
+      port: 4080
+      targetPort: 4080
