@@ -31,9 +31,9 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image..."
-                    docker.withRegistry("", "docker-hub") {
-                        sh "docker build -t ezzeddinefelhi/test:${IMAGE_NAME} ."
-                        sh "docker push ezzeddinefelhi/test:${IMAGE_NAME}"
+                    docker.withRegistry("", "dockerhubcredentiels") {
+                        sh "docker build -t medali1996/javamaven:${IMAGE_NAME} ."
+                        sh "docker push medali1996/javamaven:${IMAGE_NAME}"
                     }
                 }
             }
@@ -41,7 +41,7 @@ pipeline {
         stage('deploy') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "sed -i 's#replace-image#ezzeddinefelhi/test:${IMAGE_NAME}#g' deployment-java.yaml"
+                    sh "sed -i 's#replace-image#medali1996/javamaven:${IMAGE_NAME}#g' deployment-java.yaml"
                     sh "kubectl apply -f deployment-java.yaml"
                 }    
             }
