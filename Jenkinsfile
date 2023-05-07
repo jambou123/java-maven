@@ -6,9 +6,7 @@ pipeline {
     tools {
         maven 'LocalMaven'
     }
-    environment {
-        NAMESPACE = 'jenkins'
-        }
+    
     stages {
         stage('increment version') {
             steps {
