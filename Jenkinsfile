@@ -44,7 +44,7 @@ pipeline {
             steps {
                 withKubeConfig([credentialsId: 'work',serverUrl: 'https://192.168.199.41:6443']) {
                     sh "sed -i 's#replace-image#medali1996/javamaven:${IMAGE_NAME}#g' deployment-java.yaml"
-                    sh "kubectl apply -f deployment-java.yaml"
+                    sh "kubectl apply -f deployment-java.yaml --namespace=default"
                 }    
             }
         }
